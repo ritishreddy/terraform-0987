@@ -4,9 +4,14 @@ terraform {
       source  = "hashicorp/aws"
       version = "5.63.1"
     }
+    vault = {
+      source  = "hashicorp/vault"
+      version = "3.10.0"
+    }  
   }
 }
-provider "vault" {  
+provider "vault" {
+address = var.vault_addr
 }
 
 # Fetch the AWS credentials from Vault
