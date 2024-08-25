@@ -14,12 +14,23 @@ provider "vault" {
 auth_login {
     path = "auth/approle/login"
     parameters = {
-      role_id   = "2924afd0-d03a-2e5e-36d6-96e9d8b3c5ad"    # Replace with your actual Role ID
-      secret_id = "d7432564-c1e4-85f8-ce04-f91f3ee862b3"  # Replace with your actual Secret ID
+      role_id   =  var.vault_role_id                    # Replace with your actual Role ID
+      secret_id =  var.vault_secret_id                 # Replace with your actual Secret ID
     }
   }
 }
+environment {
+    VAULT_ADDR = 'http://3.106.54.97:8200'
+    TF_VAR_vault_role_id = credentials('vault_role_id')
+    TF_VAR_vault_secret_id = credentials('vault_secret_id')
+}
+variable "vault_role_id" {
+  default = ""
+}
 
+variable "vault_secret_id" {
+  default = ""
+}
 # Fetch the AWS credentials from Vault
 data "vault_generic_secret" "aws_creds" {
   path = "secrets/creds/ritish"
