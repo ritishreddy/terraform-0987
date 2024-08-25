@@ -6,9 +6,20 @@ terraform {
     }
   }
 }
+provider "vault" {
+  address = "http://3.106.54.97:8200"
+}
 
+# Fetch the AWS credentials from Vault
+data "vault_generic_secret" "aws_creds" {
+  path = "secrets/creds/ritish"
+}
+
+# Set up the AWS provider using the credentials fetched from Vault
 provider "aws" {
-  region = "ap-southeast-2"
+  region     = "ap-southeast-2"
+  access_key = data.vault_generic_secret.aws_creds.data["username"]
+  secret_key = data.vault_generic_secret.aws_creds.data["password"]
 }
 
 resource "aws_vpc" "example" {
