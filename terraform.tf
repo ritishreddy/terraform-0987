@@ -7,15 +7,7 @@ terraform {
   }
 }
 provider "vault" {
-  address = "http://3.106.54.97:8200"
-
-auth_login {
-    path = "auth/approle/login"
-    parameters = {
-      role_id   = "2924afd0-d03a-2e5e-36d6-96e9d8b3c5ad"    # Replace with your actual Role ID
-      secret_id = "d7432564-c1e4-85f8-ce04-f91f3ee862b3"  # Replace with your actual Secret ID
-    }
-  }
+  
 }
 
 # Fetch the AWS credentials from Vault
