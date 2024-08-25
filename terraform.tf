@@ -19,17 +19,15 @@ auth_login {
     }
   }
 }
-environment {
-    VAULT_ADDR = 'http://3.106.54.97:8200'
-    TF_VAR_vault_role_id = credentials('vault_role_id')
-    TF_VAR_vault_secret_id = credentials('vault_secret_id')
-}
+
 variable "vault_role_id" {
-  default = ""
+  description = "Role ID for Vault AppRole authentication"
+  type        = string
 }
 
 variable "vault_secret_id" {
-  default = ""
+  description = "Secret ID for Vault AppRole authentication"
+  type        = string
 }
 # Fetch the AWS credentials from Vault
 data "vault_generic_secret" "aws_creds" {
