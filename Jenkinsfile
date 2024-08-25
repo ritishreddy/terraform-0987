@@ -1,10 +1,11 @@
 pipeline {
     agent any
-environment {
-        // Set environment variables for Vault token, etc.
+
+    environment {
         VAULT_ADDR = 'http://3.106.54.97:8200'
-}
-    
+        TF_VAR_vault_role_id = credentials('vault_role_id')
+        TF_VAR_vault_secret_id = credentials('vault_secret_id')
+    }
 
     stages {
         stage('Checkout') {
